@@ -2,7 +2,7 @@
 Discord bot for ESL tutors
 
 
-Capabilities include:
+Current capabilities include:
 
 - Get English word definition from Dictionary.com
 - Get English words for a Korean word from Naver.com
@@ -11,6 +11,8 @@ Capabilities include:
 - Get links to Naver or Dictionary.com pages for a word
 
 - Save message history to .docx file for instant notes
+
+Support for other languages can be added if requested.
 
 N.B
 
