@@ -46,18 +46,30 @@ class ESLCog(commands.Cog):
 
         print(f'Command: K2E - Performing Korean into English search for {search_word} on Naver...')
 
-        EngMeaning = formatNaverResponse(getNaverDef_KORintoENG(search_word))
-        response = f'Command .K2E\nNaver results for Korean word {search_word}:\n{EngMeaning}'
-        await ctx.send(response)
+        result = getNaverDef_KORintoENG(search_word)
 
+        if result:
+            EngMeaning = formatNaverResponse(result)
+            response = f'Command .K2E\nNaver results for Korean word {search_word}:\n{EngMeaning}'
+           
+        else:
+            response = f'fCommand .K2E\nNaver results for Korean word {search_word}:\n\nSearch failed - no results returned.'
+
+        await ctx.send(response)
     # Get the Korean meanings for an English word
     @commands.command(aliases=['E2K', 'e2k'], brief='(.E2K word) Get Korean meanings for an English word')
     async def english_to_korean(self, ctx, *, search_word):
 
         print(f'Command: E2K - Performing English into Korean search for {search_word} on Naver...')
-        KorMeaning = formatNaverResponse(getNaverDef_ENGintoKOR(search_word))
-        response = f'Command .E2K\nNaver results for English word {search_word}:\n{KorMeaning}'
+        result = getNaverDef_ENGintoKOR(search_word)
+
+        if result:
+
+            KorMeaning = formatNaverResponse(result)
+            response = f'Command .E2K\nNaver results for English word {search_word}:\n{KorMeaning}'
     
+        else:
+            response = f'Command .E2K\nNaver results for English word {search_word}:\n\nSearch failed - no results returned.'
         await ctx.send(response)
 
     # Save the Discord message history into a .docx file
@@ -65,7 +77,7 @@ class ESLCog(commands.Cog):
     async def makenotes(self, ctx, number=20):
 
         # Get the messages from the channel
-        messages = await ctx.history(limit=number).flatten()
+        messages = await ctx.history(limit=abs(int(number))).flatten()
 
         # Create title for document - .docx extension is added later
         users = list(set([m.author.name for m in messages if m.author.bot == False]))

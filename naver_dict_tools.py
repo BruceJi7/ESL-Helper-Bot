@@ -48,9 +48,9 @@ def getNaverDef_KORintoENG(requested_word):
 
     soup = bs4.BeautifulSoup(res.text, features='lxml')
 
-    word_idiom_box = soup.find_all("dl", class_='list_e2')[1]
-
     try:
+        
+        word_idiom_box = soup.find_all("dl", class_='list_e2')[1]   
         meaning_titles = word_idiom_box.find_all('dt')
     except:
         return None
